@@ -11,9 +11,21 @@ async function mapToLocal(
   const cloudFormation = new aws.CloudFormation();
   const lambdaClient = new aws.Lambda();
 
-  const resources = await cloudFormation
-    .describeStackResources({ StackName: stackName })
-    .promise();
+  console.log('Mapping AWS env variables...');
+
+  let resources;
+
+  try {
+    resources = await cloudFormation
+      .describeStackResources({ StackName: stackName })
+      .promise();
+  } catch (err) {
+    console.log(
+      `Error retrieving resources from AWS for stack: ${err.message}`
+    );
+    console.log('You can still run the local code without AWS env mappings.');
+    return;
+  }
 
   const apiProxyLambda = resources.StackResources.find(
     r => r.LogicalResourceId === apiProxyLogicalId
@@ -29,6 +41,8 @@ async function mapToLocal(
     const [key, value] = entry;
     process.env[key] = value;
   });
+
+  console.log('Done mapping AWS env variables.');
 }
 
 module.exports = {
