@@ -1,12 +1,29 @@
 const aws = require('aws-sdk');
+const ssoAuth = require('@mhlabs/aws-sso-client-auth');
 
 async function mapToLocal(
   stackName,
   region = 'eu-west-1',
-  apiProxyLogicalId = 'ApiProxy'
+  apiProxyLogicalId = 'ApiProxy',
+  ssoStartUrl = null,
+  ssoAccountId = null,
+  ssoRole = null
 ) {
   process.env.AWS_DEFAULT_REGION = region;
   process.env.AWS_REGION = region;
+
+  if (ssoStartUrl) {
+    await ssoAuth.configure({
+      clientName: 'evb-cli',
+      startUrl: ssoStartUrl,
+      accountId: ssoAccountId,
+      region: region
+    });
+
+    aws.config.update({
+      credentials: await ssoAuth.authenticate(ssoRole)
+    });
+  }
 
   const cloudFormation = new aws.CloudFormation();
   const lambdaClient = new aws.Lambda();
