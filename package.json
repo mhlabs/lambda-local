@@ -25,17 +25,17 @@
   },
   "homepage": "https://github.com/mhlabs/lambda-local#readme",
   "devDependencies": {
-    "jest": "^24.8.0",
     "eslint": "^5.16.0",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-config-airbnb-base": "*",
-    "eslint-plugin-jest": "*",
-    "prettier": "^1.18.2"
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1"
   },
   "dependencies": {
     "@mhlabs/aws-sso-client-auth": "^1.0.7",
-    "aws-sdk": "^2.491.0"
+    "aws-sdk": "^2.640.0"
   }
 }
