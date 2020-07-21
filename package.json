@@ -1,6 +1,6 @@
 {
   "name": "@mhlabs/lambda-local",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A package for mapping AWS env to local env",
   "main": "index.js",
   "jest": {
@@ -35,7 +35,7 @@
     "prettier": "^1.18.2"
   },
   "dependencies": {
-    "@mhlabs/aws-sso-client-auth": "^1.0.7",
+    "@mhlabs/aws-sso-client-auth": "^1.0.9",
     "aws-sdk": "^2.491.0"
   }
 }
