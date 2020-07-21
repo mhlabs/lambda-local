@@ -37,7 +37,12 @@ function Lambda() {
   };
 }
 
+function SSO() {}
+function SSOOIDC() {}
+
 module.exports = {
   CloudFormation,
-  Lambda
+  Lambda,
+  SSO,
+  SSOOIDC
 };
