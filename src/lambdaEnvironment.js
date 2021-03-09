@@ -22,8 +22,14 @@ async function mapToLocal(settings) {
       region
     });
 
+    const credentials = await ssoAuth.authenticate(ssoRole);
+
+    process.env.AWS_ACCESS_KEY_ID = credentials.accessKeyId;
+    process.env.AWS_SECRET_ACCESS_KEY = credentials.secretAccessKey;
+    process.env.AWS_SESSION_TOKEN = credentials.sessionToken;
+
     aws.config.update({
-      credentials: await ssoAuth.authenticate(ssoRole)
+      credentials
     });
   }
 
@@ -47,7 +53,7 @@ async function mapToLocal(settings) {
   }
 
   const apiProxyLambda = resources.StackResources.find(
-    r => r.LogicalResourceId === apiProxyLogicalId
+    (r) => r.LogicalResourceId === apiProxyLogicalId
   );
 
   const lambdaFunction = await lambdaClient
@@ -56,7 +62,7 @@ async function mapToLocal(settings) {
     })
     .promise();
 
-  Object.entries(lambdaFunction.Environment.Variables).forEach(entry => {
+  Object.entries(lambdaFunction.Environment.Variables).forEach((entry) => {
     const [key, value] = entry;
     process.env[key] = value;
   });
